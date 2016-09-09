@@ -265,6 +265,7 @@
     <Content Include="cordova\css\onsenui\1.3.13\onsen-css-components-sunshine-theme.css" />
     <Content Include="cordova\css\onsenui\1.3.13\onsen-css-components.css" />
     <Content Include="cordova\css\onsenui\1.3.13\onsenui.css" />
+    <Content Include="cordova\templates\customer.html" />
     <Content Include="favicon.ico" />
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -337,7 +338,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="cordova\fonts\" />
     <Folder Include="cordova\img\" />
-    <Folder Include="cordova\templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\fonts\glyphicons-halflings-regular.woff" />

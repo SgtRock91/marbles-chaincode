@@ -11,26 +11,36 @@
     <script src="/cordova/app/app.js"></script>
 </head>
 <body ng-controller="MainController as main">
-    <ons-sliding-menu main-page="page1.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" swipeable>
+    <ons-sliding-menu main-page="main.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" swipeable>
     </ons-sliding-menu>
 
-    <ons-template id="page1.html">
-        <ons-page>
-            <ons-toolbar>
-                <div class="left">
-                    <ons-toolbar-button ng-click="menu.toggleMenu()">
-                        <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-                <div class="center">Page 1</div>
-            </ons-toolbar>
+    <ons-template id="main.html">
+        <ons-navigator animation="slide" var="rgaNav">
+            <ons-page>
+                <ons-toolbar>
+                    <div class="center">Title</div>
+                </ons-toolbar>
 
-            <p style="text-align: center; color: #999; padding-top: 100px;">Page1 Contents</p>
-        </ons-page>
+                <p style="text-align: center">
+                    <ons-button modifier="light" ng-click="rgaNav.pushPage('page.html');">Push</ons-button>
+                </p>
+            </ons-page>
+        </ons-navigator>
+
+        <ons-template id="page.html">
+            <ons-page>
+                <ons-toolbar>
+                    <div class="center">Title</div>
+                </ons-toolbar>
+
+                <p style="text-align: center">
+                    <ons-button modifier="light" ng-click="rgaNav.popPage('page.html');">Pop</ons-button>
+                </p>
+            </ons-page>
+        </ons-template>
     </ons-template>
 
-
-    <ons-template id="page2.html">
+    <ons-template id="doctor.html">
         <ons-page>
             <ons-toolbar>
                 <div class="left">
@@ -38,20 +48,34 @@
                         <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
                     </ons-toolbar-button>
                 </div>
-                <div class="center">Page 2</div>
+                <div class="center">Doctor Portal</div>
             </ons-toolbar>
+            
+            <p style="text-align: center; color: #999; padding-top: 100px;">Doctor Portal</p>
+        </ons-page>
+    </ons-template>
 
-            <p style="text-align: center; color: #999; padding-top: 100px;">Page2 Contents</p>
+    <ons-template id="patient.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="menu.toggleMenu()">
+                        <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Patient Portal</div>
+            </ons-toolbar>
+            <p style="text-align: center; color: #999; padding-top: 100px;">Patient Portal</p>
         </ons-page>
     </ons-template>
 
     <ons-template id="menu.html">
         <ons-list>
-            <ons-list-item modifier="chevron" onclick="menu.setMainPage('page1.html', {closeMenu: true})">
-                page1.html
+            <ons-list-item modifier="chevron" onclick="menu.setMainPage('doctor.html', {closeMenu: true})">
+                Doctor Portal
             </ons-list-item>
-            <ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
-                page2.html
+            <ons-list-item modifier="chevron" onclick="menu.setMainPage('patient.html', {closeMenu: true})">
+                Patient Portal
             </ons-list-item>
         </ons-list>
     </ons-template>
