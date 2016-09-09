@@ -24,7 +24,7 @@ namespace RGA.Controllers
             return true;
         }
 
-        [ActionName("AddPerson")]
+        [ActionName("AddHeartBeat")]
         [HttpPost]
         public bool AddHeartBeat(Person person, int heartBeat)
         {
