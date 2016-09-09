@@ -10,11 +10,17 @@ namespace RGA.Controllers
 {
     public class BlockChainController : ApiController
     {
+        private List<int> _mockHeartBeats = new List<int> {69, 67, 70, 102, 110, 98};
+
+        private List<int> _mockWalkDistances = new List<int> { 2, 5, 3, 1, 1, 2 };
+
+        private List<int> _mockRunDistances = new List<int> { 3, 2, 3, 4, 7, 5 };
+
         [ActionName("GetPerson")]
         [HttpPost]
         public Person GetPerson(string name)
         {
-            return new Person { Name = name };
+            return new Person { Name = name ?? "John Doe", HeartBeats = _mockHeartBeats, WalkingDistances = _mockWalkDistances, RunningDistances = _mockRunDistances};
         }
 
         [ActionName("AddPerson")]
