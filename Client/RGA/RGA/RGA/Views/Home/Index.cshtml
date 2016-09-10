@@ -23,8 +23,14 @@
     <script src="/cordova/js/angular-chart/angular-chart.min.js"></script>
     <script src="/cordova/js/app/app.js"></script>
     <link rel="stylesheet" href="/cordova/css/site.css" />
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+            display: none !important;
+        }
+    </style>
+
 </head>
-<body ng-controller="MainController as main">
+<body ng-controller="MainController as main" ng-cloak>
     <ons-sliding-menu main-page="main.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" swipeable>
     </ons-sliding-menu>
 
@@ -95,9 +101,9 @@
             <md-content>
                 <md-list flex="">
                     <md-subheader class="md-no-sticky">Please Select Your Device Type</md-subheader>
-                    <md-list-item class="md-3-line" ng-repeat="device in devices" ng-click="null">
+                    <md-list-item class="md-3-line" ng-repeat="device in main.datasvc.devices track by $index" ng-click="null">
                         <div class="md-list-item-text" layout="column">
-                            <h3>{{ device.brand }}</h3>
+                            <h3>{{ device }}</h3>
                         </div>
                     </md-list-item>
                 </md-list>
@@ -117,7 +123,6 @@
                             <md-card-title>
                                 <md-card-title-text>
                                     <span class="md-headline" style="text-align:center;">Life Insurance</span>
-                                    <span class="md-subhead" style="text-align:center;">Explore Possible Discounts</span>
                                 </md-card-title-text>
                             </md-card-title>
                         </md-card>
@@ -125,10 +130,8 @@
                             <md-card-title>
                                 <md-card-title-text>
                                     <span class="md-headline" style="text-align:center;">Health Items</span>
-                                    <span class="md-subhead" style="text-align:center;">Medium</span>
                                 </md-card-title-text>
                             </md-card-title>
-
                         </md-card>
                     </md-content>
                 </ons-col>
@@ -138,7 +141,6 @@
                             <md-card-title>
                                 <md-card-title-text>
                                     <span class="md-headline" style="text-align:center;">Fitness</span>
-                                    <span class="md-subhead" style="text-align:center;"></span>
                                 </md-card-title-text>
                             </md-card-title>
                         </md-card>
@@ -146,7 +148,6 @@
                             <md-card-title>
                                 <md-card-title-text>
                                     <span class="md-headline" style="text-align:center;">Emergency</span>
-                                    <span class="md-subhead" style="text-align:center;">Better Care Faster When It Really Matters</span>
                                 </md-card-title-text>
                             </md-card-title>
 
@@ -200,6 +201,24 @@
                 </ons-col>
                 <ons-col width="80%">
                     <input type="text" name="patientName" ng-model="main.datasvc.CurrentCustomerName">
+                </ons-col>
+            </ons-row>
+
+            <ons-row>
+                <ons-col>
+                    <md-content>
+                        <section layout="row" layout-sm="column"  layout-wrap="">
+                            <md-button class="md-raised md-primary" ng-click="main.getChaincode()">Chaincode</md-button>
+                        </section>
+                    </md-content>
+                </ons-col>
+            </ons-row>
+
+            <ons-row>
+                <ons-col>
+
+                    <div ng-repeat="(key,val) in main.datasvc.chaincodeResult track by $index">{{key}}: {{val}}</div>
+
                 </ons-col>
             </ons-row>
             

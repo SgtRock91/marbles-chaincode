@@ -14,9 +14,14 @@
     color: #00ff97;
 }
 
+.list__item--chevron:before
+{
+    color: rgb(139,195,74);
+}
+
 .toolbar-button, .toolbar-button--outline, .toolbar-button--quiet
 {
-    color: #00ff97;
+    color: rgb(139,195,74);
 }
 
 .green{ 
@@ -69,5 +74,4 @@ md-card md-card-title {
 .md-card{
     padding-right: 0;
     padding-left: 0;
-
 }

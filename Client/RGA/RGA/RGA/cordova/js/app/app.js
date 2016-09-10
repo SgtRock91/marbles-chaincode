@@ -2,7 +2,7 @@
 
 var rga = angular.module('rga', ['onsen', 'chart.js', 'ngResource', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache']);
 
-rga.controller('MainController', ['$scope', 'datasvc', function ($scope, datasvc) {
+rga.controller('MainController', ['$scope', 'datasvc', 'API', function ($scope, datasvc, API) {
 
     var main = this;
 
@@ -23,7 +23,67 @@ rga.controller('MainController', ['$scope', 'datasvc', function ($scope, datasvc
     $scope.walkingdata = [[0, 33, 68, 92, 115, 141, 172, 202, 233, 266]];
     $scope.walkingcolors = ['#3BD700'];
 
-    $scope.devices = [
+
+    main.getChaincode = function () {
+
+        API.chaincode().then(function (result) {
+            datasvc.chaincodeResult = JSON.parse(result.data.result.message);
+            console.log(result.data);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+}]);
+
+rga.config(function ($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('light-green')
+      .accentPalette('yellow');
+});
+
+rga.factory('API', ['$http', function ($http) {
+
+    var api = {};
+
+    api.chaincode = function () {
+        return $http.post('https://83a17ea4-db22-4050-afd6-e1c1b0abbdea_vp0.us.blockchain.ibm.com:443/chaincode',
+            {
+                //params:
+                //{
+                    "jsonrpc": "2.0",
+                    "method": "query",
+                    "params": {
+                        "type": 1,
+                        "chaincodeID": {
+                            "name": "db4dc42dde64e37623bbda094d8a85f9565d3117541f1c678d1a35549488255ebd02a999f1474c3ea723ce8ced6541105104df6a92f14432f71a56f73676aa11"
+                        },
+                        "ctorMsg": {
+                            "function": "read",
+                            "args": [
+                              "venus_marble"
+                            ]
+                        },
+                        "secureContext": "user_type1_9f1af45611"
+                    },
+                    "id": 0
+                //}
+            }).then(function (result) {
+                return result;
+            });
+    };
+
+    return api;
+
+}]);
+
+rga.service("datasvc", function DataSVC() {
+    var datasvc = this;
+
+    datasvc.CurrentCustomerName = "bob";
+
+    datasvc.devices = ["90 Degree", "A-Swift","Acc U Rate","adidas","Aegend","Aqua Sphere","ASICS","BalanceForm","Balega","bayite","Black Mountain","BodyGlide","Bondi Band","Brooks","Cablor","CAP Barbell","Casio","Champion","Fitbit","Fitness Master","Fruit of the Loom","Gaiam","Gildan","Glamorise","Go2 Compression Socks","HEMOON","Honor Eternity Ring","Hotodeal","Level Terrain","LuxFit","Native","New Balance","Nike","Perfect Fitness","Polar","Polar","ProSource","Reehut","Salomon","Saucony","Sivan Health and Fitness","Skechers","Soffe","Sports Research","Starwood Sports","Survival and Cross","Tesla","Under Armour","Vans","Vastar", "Vitalsox"]
+        /*
         {
             brand: "90 Degree",
         },
@@ -176,18 +236,8 @@ rga.controller('MainController', ['$scope', 'datasvc', function ($scope, datasvc
         },
         {
             brand: "Vitalsox",
-        },
-
-
-    ];
-
-}]);
-
-
-rga.service("datasvc", function DataSVC() {
-    var datasvc = this;
-
-    datasvc.CurrentCustomerName = "Billy Bob";
+        },*/
+    //];
 
     return datasvc;
 });
