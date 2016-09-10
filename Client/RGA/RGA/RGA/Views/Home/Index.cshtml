@@ -4,22 +4,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>The Chain Gang</title>
+    
     <link rel="stylesheet" href="/cordova/css/onsenui/1.3.13/onsenui.css" /> 
     <link rel="stylesheet" href="/cordova/css/onsenui/1.3.13/onsen-css-components.css" /> 
-    <link rel="stylesheet" href="/cordova/css/site.css" />
-    <script src="http://cdn.rawgit.com/OnsenUI/OnsenUI/1.3.11/build/js/angular/angular.min.js"></script>
+    
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+    <!--<script src="http://cdn.rawgit.com/OnsenUI/OnsenUI/1.3.11/build/js/angular/angular.min.js"></script>-->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
     <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI/1.3.11/build/js/onsenui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <srcipt src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></srcipt>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="/cordova/js/angular-chart/angular-chart.min.js"></script>
     <script src="/cordova/js/app/app.js"></script>
+    <link rel="stylesheet" href="/cordova/css/site.css" />
 </head>
 <body ng-controller="MainController as main">
     <ons-sliding-menu main-page="main.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" swipeable>
     </ons-sliding-menu>
 
     <ons-template id="main.html" >
-        <ons-navigator animation="slide" var="rgaNav" page="landing.html">
+        <ons-navigator animation="slide" var="rgaNav" page="person.html">
 
         </ons-navigator>
     </ons-template>
@@ -34,10 +44,122 @@
                 </div>
                 <div class="center">Landing Page</div>
             </ons-toolbar>
-            <br />
-            <br />
+            <ons-tabbar>
+                <ons-tab page="self.html" label="Self" icon="user" active="true"></ons-tab>
+                <ons-tab page="sync.html" label="Sync" icon="ion-ios-refresh-outline"></ons-tab>
+                <ons-tab page="incentives.html" label="Incentives" icon="smile-o"></ons-tab>
+            </ons-tabbar>
             
         </ons-page>
+    </ons-template>
+
+    <ons-template id="self.html">
+        <ons-page>
+            <ons-row style="text-align:center;">
+                <ons-col>
+                    <h5>Heart Rate (bpm)</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    <canvas id="heart" class="chart chart-line" chart-data="heartdata" chart-labels="heartlabels" chart-colors="heartcolors" chart-series="heartseries" chart-height="500"></canvas>
+                </ons-col>
+            </ons-row>
+            <hr>
+            <ons-row style="text-align:center;">
+                <ons-col>
+                    <h5>Distance Ran (feet)</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    <canvas id="ran" class="chart chart-line" chart-data="runningdata" chart-labels="runninglabels" chart-colors="runningcolors" chart-series="runningseries" chart-height="500"></canvas>
+                </ons-col>
+            </ons-row>
+            <hr>
+            <ons-row style="text-align:center;">
+                <ons-col>
+                    <h5>Walked Distance (feet)</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    <canvas chart-height="200" id="walked" class="chart chart-line" chart-data="walkingdata" chart-labels="walkinglabels" chart-colors="walkingcolors" chart-series="walkingseries"></canvas>
+                </ons-col>
+            </ons-row>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="sync.html">
+        <ons-page>
+            <md-content>
+                <md-list flex="">
+                    <md-subheader class="md-no-sticky">Please Select Your Device Type</md-subheader>
+                    <md-list-item class="md-3-line" ng-repeat="device in devices" ng-click="null">
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ device.brand }}</h3>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="incentives.html">
+        <ons-page>
+            <br />
+            <ons-row style="height:100%;">
+                <ons-col width="4%">
+                </ons-col>
+                <ons-col width="45%">
+                    <md-content layout-padding="" style="height:100%;">
+                        <md-card class="green" md-theme-watch="" style="height:45%;">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline" style="text-align:center;">Life Insurance</span>
+                                    <span class="md-subhead" style="text-align:center;">Explore Possible Discounts</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                        </md-card>
+                        <md-card class="yellow" md-theme-watch="" style="height:45%;">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline" style="text-align:center;">Health Items</span>
+                                    <span class="md-subhead" style="text-align:center;">Medium</span>
+                                </md-card-title-text>
+                            </md-card-title>
+
+                        </md-card>
+                    </md-content>
+                </ons-col>
+                <ons-col width="45%">
+                    <md-content layout-padding="" style="height:100%;">
+                        <md-card class="lightyellow" md-theme-watch="" style="height:45%;">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline" style="text-align:center;">Fitness</span>
+                                    <span class="md-subhead" style="text-align:center;"></span>
+                                </md-card-title-text>
+                            </md-card-title>
+                        </md-card>
+                        <md-card class="lightgreen" md-theme-watch="" style="height:45%;">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline" style="text-align:center;">Emergency</span>
+                                    <span class="md-subhead" style="text-align:center;">Better Care Faster When It Really Matters</span>
+                                </md-card-title-text>
+                            </md-card-title>
+
+                        </md-card>
+                    </md-content>
+                </ons-col>
+
+                <ons-col width="4%">
+
+                </ons-col>
+            </ons-row>
+
+</ons-page>
     </ons-template>
 
 
@@ -73,21 +195,14 @@
                 </ons-col>
             </ons-row>
             <ons-row>
-                <ons-col>
+                <ons-col width="20%">
                     Name:
                 </ons-col>
-                <ons-col>
+                <ons-col width="80%">
                     <input type="text" name="patientName" ng-model="main.datasvc.CurrentCustomerName">
                 </ons-col>
             </ons-row>
-            <ons-row style="text-align:center">
-                <ons-col >
-                    <h5>Heart Rate</h5>
-                </ons-col>
-            </ons-row>
-            <ons-row>
-                <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
-            </ons-row>
+            
         </ons-page>
     </ons-template>
 

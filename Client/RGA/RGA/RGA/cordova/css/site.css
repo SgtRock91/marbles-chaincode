@@ -3,3 +3,71 @@
     padding-right: 10px;
     padding-left: 10px;
 }
+
+:checked + .tab-bar__button > .tab-bar__icon
+{
+    color: #00ff97;
+}
+
+:checked + .tab-bar__button
+{
+    color: #00ff97;
+}
+
+.toolbar-button, .toolbar-button--outline, .toolbar-button--quiet
+{
+    color: #00ff97;
+}
+
+.green{ 
+    background-color:#3BD700; /*14C402*/
+}
+
+.blue{ 
+    background-color:#2D0CE8;
+}
+
+.red{ 
+    background-color:#FF0000;
+}
+
+.teal{ 
+    background-color:#09BF99;
+}
+.orange {
+    background-color: #E8A50C;
+}
+
+.alignColCenter
+{
+    margin: 10px auto;
+}
+
+.lightgreen {
+    background-color: #5FDA52;
+}
+
+.yellow {
+    background-color: #EFED03;
+}
+
+.lightyellow {
+    background-color: #FFFE60;
+}
+
+.layout-padding, .layout-padding-gt-sm, .layout-padding-gt-sm>*, .layout-padding-md, .layout-padding-md>*, .layout-padding>*, .layout-padding>.flex, .layout-padding>.flex-gt-sm, .layout-padding>.flex-md
+{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+md-card md-card-title {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.md-card{
+    padding-right: 0;
+    padding-left: 0;
+
+}
