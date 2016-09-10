@@ -93,21 +93,21 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	if err != nil {
 		return nil, err
 	}
-
+	
 	var empty []string
 	jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
 	err = stub.PutState(marbleIndexStr, jsonAsBytes)
 	if err != nil {
 		return nil, err
 	}
-
+	
 	var trades AllTrades
 	jsonAsBytes, _ = json.Marshal(trades)								//clear the open trade struct
 	err = stub.PutState(openTradesStr, jsonAsBytes)
 	if err != nil {
 		return nil, err
 	}
-
+	
 	return nil, nil
 }
 
@@ -199,7 +199,7 @@ func (t *SimpleChaincode) Delete(stub *shim.ChaincodeStub, args []string) ([]byt
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
-
+	
 	name := args[0]
 	err := stub.DelState(name)													//remove the key from chaincode state
 	if err != nil {
@@ -213,7 +213,7 @@ func (t *SimpleChaincode) Delete(stub *shim.ChaincodeStub, args []string) ([]byt
 	}
 	var marbleIndex []string
 	json.Unmarshal(marblesAsBytes, &marbleIndex)								//un stringify it aka JSON.parse()
-
+	
 	//remove marble from index
 	for i,val := range marbleIndex{
 		fmt.Println(strconv.Itoa(i) + " - looking at " + val + " for " + name)
@@ -263,7 +263,7 @@ func (t *SimpleChaincode) appnd_heartbeat(stub *shim.ChaincodeStub, args []strin
 
 	name = args[0]
 	heartBeat = 1111
-
+	
 	marbleAsBytes, err := stub.GetState(name)
 	if err != nil {
 		return nil, errors.New("Failed to get thing")
@@ -276,7 +276,7 @@ func (t *SimpleChaincode) appnd_heartbeat(stub *shim.ChaincodeStub, args []strin
 	}else{
 		res.HeartBeats[len(res.HeartBeats)] = heartBeat
 	}													//change the user
-
+	
 	jsonAsBytes, _ := json.Marshal(res)
 	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the marble with id as key
 	if err != nil {

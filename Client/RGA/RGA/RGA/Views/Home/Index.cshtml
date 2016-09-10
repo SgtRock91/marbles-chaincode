@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html ng-app="rga">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>The Chain Gang</title>
+    <link rel="stylesheet" href="/cordova/css/onsenui/1.3.13/onsenui.css" /> 
+    <link rel="stylesheet" href="/cordova/css/onsenui/1.3.13/onsen-css-components.css" /> 
+    <link rel="stylesheet" href="/cordova/css/site.css" />
+    <script src="http://cdn.rawgit.com/OnsenUI/OnsenUI/1.3.11/build/js/angular/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+    <script src="https://cdn.rawgit.com/OnsenUI/OnsenUI/1.3.11/build/js/onsenui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script src="/cordova/js/angular-chart/angular-chart.min.js"></script>
+    <script src="/cordova/js/app/app.js"></script>
+</head>
+<body ng-controller="MainController as main">
+    <ons-sliding-menu main-page="main.html" menu-page="menu.html" side="left" max-slide-distance="250px" var="menu" swipeable>
+    </ons-sliding-menu>
+
+    <ons-template id="main.html" >
+        <ons-navigator animation="slide" var="rgaNav" page="landing.html">
+
+        </ons-navigator>
+    </ons-template>
+
+    <ons-template id="landing.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="menu.toggleMenu()">
+                        <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Landing Page</div>
+            </ons-toolbar>
+            <br />
+            <br />
+            
+        </ons-page>
+    </ons-template>
+
+
+    <ons-template id="doctor.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="menu.toggleMenu()">
+                        <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Doctor Portal</div>
+            </ons-toolbar>
+            
+            <p style="text-align: center; color: #999; padding-top: 100px;">Doctor Portal</p>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="person.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="left">
+                    <ons-toolbar-button onclick="menu.toggleMenu()">
+                        <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+                <div class="center">Person Portal</div>
+            </ons-toolbar>
+            <br />
+            <ons-row>
+                <ons-col style="text-align:center">
+                    <h5>Customer Information</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    Name:
+                </ons-col>
+                <ons-col>
+                    <input type="text" name="patientName" ng-model="main.datasvc.CurrentCustomerName">
+                </ons-col>
+            </ons-row>
+            <ons-row style="text-align:center">
+                <ons-col >
+                    <h5>Heart Rate</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+            </ons-row>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="menu.html">
+        <ons-list>
+            <ons-list-item modifier="chevron" onclick="menu.setMainPage('landing.html', {closeMenu: true})">
+                Landing Page
+            </ons-list-item>
+            <ons-list-item modifier="chevron" onclick="menu.setMainPage('doctor.html', {closeMenu: true})">
+                Doctor Portal
+            </ons-list-item>
+            <ons-list-item modifier="chevron" onclick="menu.setMainPage('person.html', {closeMenu: true})">
+                Person Portal
+            </ons-list-item>
+        </ons-list>
+    </ons-template>
+</body>
+</html>
