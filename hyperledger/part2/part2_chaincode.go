@@ -42,6 +42,7 @@ type Marble struct{
 	Color string `json:"color"`
 	Size int `json:"size"`
 	User string `json:"user"`
+	HeartBeats []int `json:"HeartBeats"`
 }
 
 type Description struct{
@@ -92,21 +93,21 @@ func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args [
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var empty []string
 	jsonAsBytes, _ := json.Marshal(empty)								//marshal an emtpy array of strings to clear the index
 	err = stub.PutState(marbleIndexStr, jsonAsBytes)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var trades AllTrades
 	jsonAsBytes, _ = json.Marshal(trades)								//clear the open trade struct
 	err = stub.PutState(openTradesStr, jsonAsBytes)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return nil, nil
 }
 
@@ -147,6 +148,8 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 		return res, err
 	} else if function == "remove_trade" {									//cancel an open trade order
 		return t.remove_trade(stub, args)
+	} else if function == "save_heartbeat" {
+		return t.appnd_heartbeat(stub, args)
 	}
 	fmt.Println("invoke did not find func: " + function)					//error
 
@@ -196,7 +199,7 @@ func (t *SimpleChaincode) Delete(stub *shim.ChaincodeStub, args []string) ([]byt
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
-	
+
 	name := args[0]
 	err := stub.DelState(name)													//remove the key from chaincode state
 	if err != nil {
@@ -210,7 +213,7 @@ func (t *SimpleChaincode) Delete(stub *shim.ChaincodeStub, args []string) ([]byt
 	}
 	var marbleIndex []string
 	json.Unmarshal(marblesAsBytes, &marbleIndex)								//un stringify it aka JSON.parse()
-	
+
 	//remove marble from index
 	for i,val := range marbleIndex{
 		fmt.Println(strconv.Itoa(i) + " - looking at " + val + " for " + name)
@@ -247,6 +250,39 @@ func (t *SimpleChaincode) Write(stub *shim.ChaincodeStub, args []string) ([]byte
 		return nil, err
 	}
 	return nil, nil
+}
+
+func (t *SimpleChaincode) appnd_heartbeat(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
+	var name, hbS string
+	var err error
+	var heartBeat int
+
+	if len(args) != 2 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 2. name of the variable and heartbeats")
+	}
+
+	name = args[0]
+	heartBeat = 1111
+
+	marbleAsBytes, err := stub.GetState(name)
+	if err != nil {
+		return nil, errors.New("Failed to get thing")
+	}
+	res := Marble{}
+	json.Unmarshal(marbleAsBytes, &res)										//un stringify it aka JSON.parse()
+	if res.HeartBeats == nil {
+		res.HeartBeats = []int { heartBeat }
+
+	}else{
+		res.HeartBeats[len(res.HeartBeats)] = heartBeat
+	}													//change the user
+
+	jsonAsBytes, _ := json.Marshal(res)
+	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the marble with id as key
+	if err != nil {
+		return nil, err
+	}
+	return nil,nil
 }
 
 // ============================================================================================================================
