@@ -253,7 +253,7 @@ func (t *SimpleChaincode) Write(stub *shim.ChaincodeStub, args []string) ([]byte
 }
 
 func (t *SimpleChaincode) appnd_heartbeat(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	var name, hbS string
+	var name string
 	var err error
 	var heartBeat int
 
