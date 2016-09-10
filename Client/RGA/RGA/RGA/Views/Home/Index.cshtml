@@ -48,11 +48,12 @@
                         <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
                     </ons-toolbar-button>
                 </div>
-                <div class="center">Landing Page</div>
+                <div class="center"></div>
             </ons-toolbar>
             <ons-tabbar>
                 <ons-tab page="self.html" label="Self" icon="user" active="true"></ons-tab>
                 <ons-tab page="sync.html" label="Sync" icon="ion-ios-refresh-outline"></ons-tab>
+                <ons-tab page="analytics.html" label="Analytics" icon="ion-ios-pie"></ons-tab>
                 <ons-tab page="incentives.html" label="Incentives" icon="smile-o"></ons-tab>
             </ons-tabbar>
             
@@ -91,6 +92,26 @@
             <ons-row>
                 <ons-col>
                     <canvas chart-height="200" id="walked" class="chart chart-line" chart-data="walkingdata" chart-labels="walkinglabels" chart-colors="walkingcolors" chart-series="walkingseries"></canvas>
+                </ons-col>
+            </ons-row>
+        </ons-page>
+    </ons-template>
+
+    <ons-template id="analytics.html">
+        <ons-page>
+            <ons-row style="text-align:center">
+                <ons-col style="text-align:center">
+                    <h5>Big Data Analytics on Wearables</h5>
+                </ons-col>
+            </ons-row>
+            <ons-row style="text-align:center">
+                <ons-col style="text-align:center">
+                    <img src="/cordova/img/1resized.PNG">
+                </ons-col>
+            </ons-row>
+            <ons-row style="text-align:center">
+                <ons-col style="text-align:center">
+                    <img src="/cordova/img/2resized.PNG" style="height:290px;">
                 </ons-col>
             </ons-row>
         </ons-page>
