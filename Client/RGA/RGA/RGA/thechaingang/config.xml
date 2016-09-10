@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.daugherty.thechaingang" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://www.daugherty.com" >
+
+    <name>TheChainGang</name>
+    <description>
+        RGA Hackathon Application
+    </description>
+    <author email="joseph.ondrus@daugherty.com" href="https://www.daugherty.com">
+        RGA Hackathon
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+	<plugin name="cordova-plugin-file" />
+	<preference name="AndroidPersistentFileLocation" value="Internal" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>
